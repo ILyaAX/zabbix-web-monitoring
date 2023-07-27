@@ -1,0 +1,28 @@
+zabbix_export:
+  version: '6.4'
+  template_groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: 7ef3d4b6c5a44ea293e6e66c8b181a93
+      template: CheckDomainExpiration
+      name: CheckDomainExpiration
+      groups:
+        -
+          name: Templates/Applications
+      items:
+        -
+          uuid: ca794f32810b4b829d6d2b492b229947
+          name: 'Cрок регистрации домена {$DOMAINNAME}'
+          key: 'domainexpire[{$DOMAINNAME}]'
+          delay: 1d
+          triggers:
+            -
+              uuid: b7d612ab6eb24ec5a474b3dc0060d412
+              expression: 'last(/CheckDomainExpiration/domainexpire[{$DOMAINNAME}])<39'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'last(/CheckDomainExpiration/domainexpire[{$DOMAINNAME}])>=40'
+              name: 'Срок регистрации домена {$DOMAINNAME} заканчивается'
+              priority: HIGH
