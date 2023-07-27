@@ -5,6 +5,5 @@ RUN mkdir /etc/zabbix/scripts
 USER root
 RUN apt update; \
     apt-get install -y --no-install-recommends ntp whois; \
-    sudo apt install whois -y; \
     chown -R zabbix. /etc/zabbix/zabbix_agentd.d
 USER 1997
