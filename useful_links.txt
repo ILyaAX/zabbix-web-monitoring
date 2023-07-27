@@ -1,2 +1,3 @@
 https://serveradmin.ru/monitoring-sroka-deystviya-ssl-sertifikata-v-zabbix/
 https://www.youtube.com/watch?v=2tur2crhNOE
+https://winitpro.ru/index.php/2023/01/16/monitoring-domain-expiration-zabbix/
