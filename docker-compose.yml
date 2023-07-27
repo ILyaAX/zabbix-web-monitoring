@@ -67,6 +67,7 @@ services:
       ZBX_TIMEOUT: 30
     volumes:
       - ./monitoring/:/etc/zabbix/scripts/
+      - ./zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d/
     ports:
       - "10050:10050"
     restart: unless-stopped
