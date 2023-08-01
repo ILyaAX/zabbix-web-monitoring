@@ -1,0 +1,42 @@
+zabbix_export:
+  version: '6.4'
+  template_groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: 7ef3d4b6c5a44ea293e6e66c8b181a93
+      template: CheckDomainExpiration
+      name: CheckDomainExpiration
+      groups:
+        -
+          name: Templates/Applications
+      discovery_rules:
+        -
+          uuid: c8cfb37630134f5fb94f6cc743ee167e
+          name: 'Domans Expiration Discovery'
+          key: domainexpire.discovery
+          delay: 5m
+          filter:
+            conditions:
+              -
+                macro: '{#DOMAIN_EX}'
+                value: '.*'
+                formulaid: A
+          item_prototypes:
+            -
+              uuid: 075bc61f6daa488e91f624ea26ba74e0
+              name: '{#DOMAIN_EX} domain payment deadline expires soon'
+              key: 'domainexpire[{#DOMAIN_EX}]'
+              delay: 5m
+              history: 30d
+              trends: 180d
+              trigger_prototypes:
+                -
+                  uuid: 2d903941cb0a4c78bccf80329213e5f6
+                  expression: 'last(/CheckDomainExpiration/domainexpire[{#DOMAIN_EX}])<40'
+                  recovery_mode: RECOVERY_EXPRESSION
+                  recovery_expression: 'last(/CheckDomainExpiration/domainexpire[{#DOMAIN_EX}])>=40'
+                  name: '{#DOMAIN_EX} domain payment deadline expires soon'
+                  priority: HIGH

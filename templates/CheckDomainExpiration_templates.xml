@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.4</version>
+    <template_groups>
+        <template_group>
+            <uuid>a571c0d144b14fd4a87a9d9b2aa9fcd6</uuid>
+            <name>Templates/Applications</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>7ef3d4b6c5a44ea293e6e66c8b181a93</uuid>
+            <template>CheckDomainExpiration</template>
+            <name>CheckDomainExpiration</name>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>c8cfb37630134f5fb94f6cc743ee167e</uuid>
+                    <name>Domans Expiration Discovery</name>
+                    <key>domainexpire.discovery</key>
+                    <delay>5m</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#DOMAIN_EX}</macro>
+                                <value>.*</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>075bc61f6daa488e91f624ea26ba74e0</uuid>
+                            <name>{#DOMAIN_EX} domain payment deadline expires soon</name>
+                            <key>domainexpire[{#DOMAIN_EX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>180d</trends>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>2d903941cb0a4c78bccf80329213e5f6</uuid>
+                                    <expression>last(/CheckDomainExpiration/domainexpire[{#DOMAIN_EX}])&lt;40</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/CheckDomainExpiration/domainexpire[{#DOMAIN_EX}])&gt;=40</recovery_expression>
+                                    <name>{#DOMAIN_EX} domain payment deadline expires soon</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
