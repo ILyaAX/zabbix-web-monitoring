@@ -40,6 +40,12 @@
                             <delay>5m</delay>
                             <history>30d</history>
                             <trends>180d</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>CheckDomainExpiration</value>
+                                </tag>
+                            </tags>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <uuid>2d903941cb0a4c78bccf80329213e5f6</uuid>

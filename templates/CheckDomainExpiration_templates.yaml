@@ -32,6 +32,10 @@ zabbix_export:
               delay: 5m
               history: 30d
               trends: 180d
+              tags:
+                -
+                  tag: Application
+                  value: CheckDomainExpiration
               trigger_prototypes:
                 -
                   uuid: 2d903941cb0a4c78bccf80329213e5f6
