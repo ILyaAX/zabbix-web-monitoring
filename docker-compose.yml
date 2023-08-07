@@ -28,6 +28,7 @@ services:
       ZBX_VALUECACHESIZE: 64M
       ZBX_CACHESIZE: 128M
       ZBX_TRENDCACHESIZE: 128M
+    hostname: zabbix
     ports:
       - "10051:10051"
     restart: unless-stopped
@@ -48,6 +49,7 @@ services:
       PHP_TZ: Europe/Moscow
     ports:
       - "81:8080"
+    hostname: web
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/"]
       interval: 10s
@@ -65,6 +67,7 @@ services:
       ZBX_HOSTNAME: Zabbix server
       ZBX_SERVER_HOST: 0.0.0.0/0
       ZBX_TIMEOUT: 30
+    hostname: agent
     volumes:
       - ./monitoring/:/etc/zabbix/scripts/
       - ./zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d/
